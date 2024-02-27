@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebGL AR Print</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.rawgit.com/diogosantos/AR.js/3.0.2/aframe/build/aframe-ar.js"></script>
+</head>
+<body>
+    <a-scene embedded arjs>
+        <!-- Marker 1 -->
+        <a-marker preset="custom" type="pattern" url="path/to/marker1.jpg">
+            <a-video id="video" width="16" height="9" position="0 1.5 -2" rotation="-90 0 0"></a-video>
+        </a-marker>
+
+        <!-- Marker 2 -->
+        <a-marker preset="custom" type="pattern" url="path/to/marker2.jpg">
+            <a-video id="video" width="16" height="9" position="0 1.5 -2" rotation="-90 0 0"></a-video>
+        </a-marker>
+
+        <!-- Marker 3 -->
+        <a-marker preset="custom" type="pattern" url="path/to/marker3.jpg">
+            <a-video id="video" width="16" height="9" position="0 1.5 -2" rotation="-90 0 0"></a-video>
+        </a-marker>
+
+        <!-- Marker 4 -->
+        <a-marker preset="custom" type="pattern" url="path/to/marker4.jpg">
+            <a-video id="video" width="16" height="9" position="0 1.5 -2" rotation="-90 0 0"></a-video>
+        </a-marker>
+
+        <!-- Marker 5 -->
+        <a-marker preset="custom" type="pattern" url="path/to/marker5.jpg">
+            <a-video id="video" width="16" height="9" position="0 1.5 -2" rotation="-90 0 0"></a-video>
+        </a-marker>
+
+        <!-- Define video sources for each marker -->
+        <a-assets>
+            <!-- Videos for Marker 1 -->
+            <video id="video1" autoplay loop crossorigin="anonymous">
+                <source src="path/to/marker1-video.mp4" type="video/mp4">
+            </video>
+            <!-- Videos for Marker 2 -->
+            <video id="video2" autoplay loop crossorigin="anonymous">
+                <source src="path/to/marker2-video.mp4" type="video/mp4">
+            </video>
+            <!-- Videos for Marker 3 -->
+            <video id="video3" autoplay loop crossorigin="anonymous">
+                <source src="path/to/marker3-video.mp4" type="video/mp4">
+            </video>
+            <!-- Videos for Marker 4 -->
+            <video id="video4" autoplay loop crossorigin="anonymous">
+                <source src="path/to/marker4-video.mp4" type="video/mp4">
+            </video>
+            <!-- Videos for Marker 5 -->
+            <video id="video5" autoplay loop crossorigin="anonymous">
+                <source src="path/to/marker5-video.mp4" type="video/mp4">
+            </video>
+        </a-assets>
+    </a-scene>
+
+    <script>
+        // Function to play video based on marker
+        function playVideoForMarker(markerId) {
+            var video = document.getElementById('video');
+            var source = document.getElementById('video' + markerId);
+            video.setAttribute('src', source.getAttribute('src'));
+            video.play();
+        }
+
+        // Event listener for marker found
+        document.querySelectorAll('a-marker').forEach(function(marker) {
+            marker.addEventListener('markerFound', function () {
+                var markerId = marker.getAttribute('id').replace('marker', '');
+                playVideoForMarker(markerId);
+            });
+        });
+    </script>
+</body>
+</html>
